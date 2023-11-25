@@ -36,10 +36,10 @@ const Banner = ({ handleSearchCategory }) => {
     <div className="h-[60vh] flex flex-col justify-center items-center text-center rounded-b-lg" style={bannerStyle}>
       <div style={overlayStyle}></div>
       <h1 className="text-5xl mb-6 font-bold text-black z-10 pt-10 px-5">
-        Find your favorite meal with your <span className="text-red-500">Secial Menu</span>
+        Find your favorite meal with your <span className="text-red-500">Special Menu</span>
       </h1>
       <p className="text-xl text-gray-700 z-10 mb-6 px-5">
-        Explore a wide range of meal opportunities and discover your perfect career path. Start your journey today.
+        Explore a wide range of meal opportunities and discover your perfect meals. Start your journey today.
       </p>
       <div className="join w-full px-5 lg:px-0 lg:w-1/3 z-10 pb-10">
         <input

@@ -1,6 +1,5 @@
 [
   {
-    "_id": "1",
     "meal_title": "Classic Pancakes",
     "meal_type": "Breakfast",
     "meal_image": "https://cristianonew.ukrdevs.com/wp-content/uploads/2016/08/product-1-370x247.jpg",
@@ -15,7 +14,6 @@
     "admin_email": "john.doe@example.com"
   },
   {
-    "_id": "2",
     "meal_title": "Avocado Toast",
     "meal_type": "Breakfast",
     "meal_image": "https://cristianonew.ukrdevs.com/wp-content/uploads/2016/08/product-5-370x247.jpg",
@@ -30,7 +28,6 @@
     "admin_email": "jane.smith@example.com"
   },
   {
-    "_id": "3",
     "meal_title": "Omelette Breakfast Wrap",
     "meal_type": "Breakfast",
     "meal_image": "https://cristianonew.ukrdevs.com/wp-content/uploads/2016/08/product-5-370x247.jpg",
@@ -45,7 +42,6 @@
     "admin_email": "michael.johnson@example.com"
   },
   {
-    "_id": "4",
     "meal_title": "Chicken Alfredo Pasta",
     "meal_type": "Lunch",
     "meal_image": "https://cristianonew.ukrdevs.com/wp-content/uploads/2016/08/product-2-370x247.jpg",
@@ -60,7 +56,6 @@
     "admin_email": "emily.davis@example.com"
   },
   {
-    "_id": "5",
     "meal_title": "Caprese Salad",
     "meal_type": "Lunch",
     "meal_image": "https://cristianonew.ukrdevs.com/wp-content/uploads/2016/08/product-8-370x247.jpg",
@@ -75,7 +70,6 @@
     "admin_email": "david.williams@example.com"
   },
   {
-    "_id": "6",
     "meal_title": "Quinoa and Black Bean Bowl",
     "meal_type": "Lunch",
     "meal_image": "https://cristianonew.ukrdevs.com/wp-content/uploads/2016/08/product-2-370x247.jpg",
@@ -90,7 +84,6 @@
     "admin_email": "sophia.miller@example.com"
   },
   {
-    "_id": "7",
     "meal_title": "Grilled Salmon with Lemon Butter Sauce",
     "meal_type": "Dinner",
     "meal_image": "https://cristianonew.ukrdevs.com/wp-content/uploads/2016/08/product-3-370x247.jpg",
@@ -105,7 +98,6 @@
     "admin_email": "ethan.brown@example.com"
   },
   {
-    "_id": "8",
     "meal_title": "Vegetarian Stir-Fry",
     "meal_type": "Dinner",
     "meal_image": "https://cristianonew.ukrdevs.com/wp-content/uploads/2016/08/product-1-370x247.jpg",
@@ -120,7 +112,6 @@
     "admin_email": "olivia.taylor@example.com"
   },
   {
-    "_id": "9",
     "meal_title": "Eggplant Parmesan",
     "meal_type": "Dinner",
     "meal_image": "https://cristianonew.ukrdevs.com/wp-content/uploads/2016/08/product-8-370x247.jpg",

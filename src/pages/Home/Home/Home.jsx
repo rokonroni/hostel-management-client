@@ -1,13 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import useMeals from "../../../hooks/useMeals";
 import AllTab from "../AllTab/AllTab";
 import Allmeals from "../Allmeals/Allmeals";
 import Banner from "../Banner/Banner";
-import useMenu from "../../../hooks/useMenu";
+import PriceTable from "../PriceTable/PriceTable";
 
 const Home = () => {
- const [allmeals, isPending, refetch ] = useMenu();
+  const [allmeals, isPending] = useMeals();
 
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All meals");
@@ -46,6 +46,7 @@ const Home = () => {
           setSelectedCategory={setSelectedCategory}
         />
         <Allmeals meals={filteredmeals} selectedCategory={selectedCategory} />
+        <PriceTable />
       </div>
     </>
   );

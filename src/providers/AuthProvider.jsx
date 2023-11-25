@@ -2,8 +2,8 @@ import { createContext, useEffect, useState } from "react";
 
 import PropTypes from "prop-types";
 import { auth } from "../firebase/firebase.config";
-import axios from "axios";
-import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 const GoogleProvider = new GoogleAuthProvider();
@@ -12,6 +12,7 @@ const githubProvider = new GithubAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosPublic = useAxiosPublic();
 
   // google login
   const googleLogin = () => {
@@ -40,33 +41,35 @@ const AuthProvider = ({ children }) => {
     setLoading(true)
     return signOut(auth);
   };
+  const updateUserProfile = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
+  };
 
   // Setup observer
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-
-      // const userEmail = currentUser?.email || user?.email;
-      // const loggedUser = {email: userEmail}
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log(currentUser);
+      if (currentUser) {
+        //get token
+        const userInfo = { email: currentUser.email };
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+          }
+        });
+      } else {
+        //TODO: remove token
+        localStorage.removeItem("access-token");
+      }
       setLoading(false);
-      // if (currentUser) {
-      //   axios.post("https://job-finder-server-tau.vercel.app/jwt",loggedUser,{withCredentials:true})
-      //   .then(res => {
-      //     console.log(res.data);
-      //   })
-      // }
-      // else{
-      //   axios.post("https://job-finder-server-tau.vercel.app/logout",loggedUser,{withCredentials:true})
-      //   .then(res => {
-      //     console.log(res.data);
-      //   })
-      // }
     });
     return () => {
-      unSubscribe();
+      return unsubscribe();
     };
-  }, [user?.email]);
+  }, [axiosPublic]);
 
   // value of AuthContext
   const AuthInfo = {
@@ -75,6 +78,7 @@ const AuthProvider = ({ children }) => {
     googleLogin,
     githubLogin,
     signUp,
+    updateUserProfile,
     signIn,
     logOut,
   };

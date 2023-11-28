@@ -33,7 +33,7 @@ const NavLinks = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="menu font-bold menu-sm dropdown-content bg-slate-300 z-[1] p-2 shadow rounded-xl w-52 absolute top-full mt-4 right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                className="menu font-bold menu-sm dropdown-content bg-slate-300 z-[1] p-2 shadow rounded-xl w-52 absolute top-full right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
               >
                 <li className="hover:">
                   <p disabled className="justify-between disabled">
@@ -54,20 +54,12 @@ const NavLinks = () => {
                     Dashboard
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    onClick={logOut}
-                    className={({ isActive, isPending }) =>
-                      isPending
-                        ? "bg-none"
-                        : isActive
-                        ? "text-[#FF444A] font-bold underline text-lg "
-                        : "font-bold underline text-lg   hover:bg-transparent hover:text-[#FF444A] focus:bg-white focus:text-[#FF444A]"
-                    }
+                  <button
+                    onClick={()=>logOut()}
+                    className="btn bg-red-400 hover:bg-red-600 w-full text-xl mt-3 btn-sm mb-2  items-center "
                   >
                     Logout
-                  </NavLink>
-                </li>
+                  </button>
               </ul>
             </div>
           </>

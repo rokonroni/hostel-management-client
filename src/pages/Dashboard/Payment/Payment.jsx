@@ -4,13 +4,13 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 
 const stripePromise = loadStripe(import.meta.env.VITE_payment_gateway_PK)
-const Payment = () => {
+const Payment = ({totalPrice}) => {
     return (
         <>
             <SectionTitle title={"Payment Now"} subTitle={"---Want to payment bill?---"} />
             <div className='w-2/3 mx-auto'>
                 <Elements stripe={stripePromise}> 
-                    <CheckoutForm />
+                    <CheckoutForm totalPrice={totalPrice}/>
                 </Elements>
             </div>
         </>

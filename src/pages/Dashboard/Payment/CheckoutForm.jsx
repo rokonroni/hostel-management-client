@@ -1,13 +1,12 @@
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useEffect } from "react";
-import { useState } from "react";
+
+import { useEffect, useState} from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({totalPrice}) => {
     const [error, setError] = useState("");
     const [clientSecret, setClientSecret] = useState('');
     const [transactionId, setTransactionId] = useState('');
@@ -16,8 +15,6 @@ const CheckoutForm = () => {
   const {user} = useAuth();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
-  const [cart, refetch] = useCart();
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   useEffect(()=>{
     if (totalPrice>0) {
@@ -74,12 +71,9 @@ const CheckoutForm = () => {
                 price: totalPrice,
                 transactionId: paymentIntent.id,
                 date: new Date(),
-                cartIds: cart.map(item => item._id),
-                menuItemIds: cart.map(item => item.menuId),
                 status: 'pending'
             }
             const res= await axiosSecure.post('/payments', payment)
-            refetch();
             if(res.data?.paymentResult?.insertedId){
               Swal.fire({
               title: "Payment successful!",

@@ -3,7 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 const UserProfile = () => {
     const {user} = useAuth();
   return (
-      <div className="  ml-[360px] ">
+      <div >
         <div className="bg-white shadow-xl rounded-lg py-3">
           <div className="photo-wrapper p-2">
             <img

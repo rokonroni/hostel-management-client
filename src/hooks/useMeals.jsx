@@ -7,7 +7,7 @@ const useMeals = (page, pageSize) => {
   const {
     data: allmeals = [],
     isPending,
-    refetch,
+    refetch : manualRefetch, 
   } = useQuery({
     queryKey: ["menu", { page, pageSize }],
     queryFn: async () => {
@@ -15,6 +15,6 @@ const useMeals = (page, pageSize) => {
       return res.data;
     },
   });
-  return [allmeals, isPending, refetch];
+  return [allmeals, isPending, manualRefetch];
 };
 export default useMeals;

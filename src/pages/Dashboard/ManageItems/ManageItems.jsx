@@ -1,19 +1,33 @@
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
-import useMeals from "../../../../hooks/useMeals";
-import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import SectionTitle from "../../../../components/SectionTitle/SectionTitle";
 import { useState } from "react";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useCount from "../../../hooks/useCount";
+import useMeals from "../../../hooks/useMeals";
 
 const ManageItems = () => {
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const [menu] = useMeals(currentPage, pageSize);
+  const [menu, manualRefetch] = useMeals(currentPage, pageSize);
   const axiosSecure = useAxiosSecure();
+  const [count] = useCount("/mealsCount");
+  console.log(count);
+  const numberOfPages = Math.ceil(count / pageSize);
+  console.log(numberOfPages);
+  const pages = [...Array(numberOfPages).keys()];
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < pages.length) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   const handleDelete = (id) => {
@@ -26,15 +40,18 @@ const ManageItems = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
+      console.log(result);
       if (result.isConfirmed) {
-        axiosSecure.delete(`/menu/${id}`).then((res) => {
+        axiosSecure.delete(`/meals/${id}`).then((res) => {
+          console.log(res);
           if (res.data.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",
-              text: `Your file has been deleted.`,
+              text: `Your meal has been deleted.`,
               icon: "success",
             });
           }
+          manualRefetch();
         });
       }
     });
@@ -62,7 +79,11 @@ const ManageItems = () => {
             <tbody>
               {menu.map((item, idx) => (
                 <tr key={item._id}>
-                  <th>{idx + 1}</th>
+                  <th>
+                    {currentPage > 1
+                      ? (currentPage - 1) * pageSize + idx + 1
+                      : idx + 1}
+                  </th>
                   <td>
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
@@ -96,12 +117,36 @@ const ManageItems = () => {
           </table>
         </div>
       </div>
-      <div className="pagination">
-        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-          Previous
+      <div className="text-center">
+        <button
+          onClick={handlePrevPage}
+          className={`btn ${currentPage === 1 ? "btn-disabled" : ""}`}
+        >
+          Prev
         </button>
-        <span>{currentPage}</span>
-        <button onClick={() => handlePageChange(currentPage + 1)}>Next</button>
+        {pages.map((page) => (
+          <button
+            className={`mx-2 btn my-5 active:bg-gray-700  ${
+              page + 1 === currentPage ? "active" : ""
+            }`}
+            onClick={() => setCurrentPage(page + 1)}
+            key={page}
+            style={{
+              backgroundColor: page + 1 === currentPage ? "gray" : "initial",
+              color: page + 1 === currentPage ? "white" : "black",
+            }}
+          >
+            {page + 1}
+          </button>
+        ))}
+        <button
+          onClick={handleNextPage}
+          className={`btn ${
+            currentPage === numberOfPages ? "btn-disabled" : ""
+          }`}
+        >
+          Next
+        </button>
       </div>
     </>
   );

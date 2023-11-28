@@ -40,7 +40,7 @@ const Dashboard = () => {
                   {user.displayName}
                 </p>
                 <span className="text-secondary-dark dark:text-stone-500 font-medium block text-[0.85rem]">
-                  {user.role}
+                  {user.email}
                 </span>
               </div>
             </div>

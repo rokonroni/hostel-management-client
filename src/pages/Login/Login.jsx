@@ -34,8 +34,8 @@ const Login = () => {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    console.log("Hi");
     const form = e.target;
+    console.log();
     const email = form.email.value;
     const password = form.password.value;
     signIn(email, password).then(() => {
@@ -80,7 +80,8 @@ const Login = () => {
             </span>
             <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4" />
           </div>
-          <div className="mt-4">
+         <form onSubmit={handleSignIn}>
+           <div className="mt-4">
             <label
               className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
               htmlFor="LoggingEmailAddress"
@@ -91,6 +92,7 @@ const Login = () => {
               id="LoggingEmailAddress"
               className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
               type="email"
+              name="email"
             />
           </div>
           <div className="mt-4">
@@ -112,6 +114,7 @@ const Login = () => {
               id="loggingPassword"
               className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
               type="password"
+              name="password"
             />
           </div>
           <div className="relative">
@@ -133,12 +136,13 @@ const Login = () => {
           <div className="mt-6">
             <button
               disabled={disable}
-              onClick={handleSignIn}
               className="w-full px-6 py-3 text-sm font-medium  text-white bg-blue-800 rounded-lg hover:bg-blue-700"
+              type="submit"
             >
               Sign In
             </button>
           </div>
+         </form>
           <p className="mt-6 text-sm text-center text-gray-400">Don&#x27;t have an account yet? <Link to='/signup' className="text-blue-500 focus:outline-none focus:underline hover:underline">Sign up</Link>.</p>
         </div>
       </div>

@@ -1,6 +1,5 @@
 import useAuth from "../hooks/useAuth";
 import PropTypes from "prop-types"
-import loadingImg from "../assets/others/loader2.gif";
 import { Navigate, useLocation } from "react-router-dom";
 import useAdmin from "../hooks/UseAdmin";
 
@@ -13,7 +12,7 @@ const AdminRoute = ({ children }) => {
     return (
       <>
         <div className="min-h-screen text-center w-full">
-          <img className="w-3/4" src={loadingImg} />
+          <img className="w-3/4" src="img" />
         </div>
       </>
     );

@@ -10,22 +10,19 @@ import useMeals from "../../../hooks/useMeals";
 const ManageItems = () => {
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const [menu, manualRefetch] = useMeals(currentPage, pageSize);
+  const [menu, isPending, manualRefetch] = useMeals(currentPage, pageSize);
   const axiosSecure = useAxiosSecure();
-  const [count] = useCount("/mealsCount");
-  console.log(count);
+  const [count] = useCount();
   const numberOfPages = Math.ceil(count / pageSize);
-  console.log(numberOfPages);
-  const pages = [...Array(numberOfPages).keys()];
 
   const handlePrevPage = () => {
-    if (currentPage > 0) {
+    if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
   const handleNextPage = () => {
-    if (currentPage < pages.length) {
+    if (currentPage < numberOfPages) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -39,20 +36,21 @@ const ManageItems = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      console.log(result);
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/meals/${id}`).then((res) => {
-          console.log(res);
-          if (res.data.deletedCount > 0) {
+        try {
+          const response = await axiosSecure.delete(`/meals/${id}`);
+          if (response.data.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",
               text: `Your meal has been deleted.`,
               icon: "success",
             });
+            manualRefetch(); // Trigger manual refetch on successful deletion
           }
-          manualRefetch();
-        });
+        } catch (error) {
+          console.error("Error deleting meal:", error);
+        }
       }
     });
   };
@@ -66,7 +64,7 @@ const ManageItems = () => {
         <div className="overflow-x-auto mt-6 ">
           <table className="table">
             {/* head */}
-            <thead className=" text-white font-semibold text-xl ">
+            <thead className="text-white font-semibold text-xl ">
               <tr className="bg-yellow-800 ">
                 <th>#</th>
                 <th>Image</th>
@@ -87,7 +85,7 @@ const ManageItems = () => {
                   <td>
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
-                        <img src={item.meal_image} />
+                        <img src={item.meal_image} alt={`Meal ${item.meal_title}`} />
                       </div>
                     </div>
                   </td>
@@ -95,10 +93,7 @@ const ManageItems = () => {
                   <td>${item.price}</td>
                   <th>
                     <Link to={`/dashboard/updateItem/${item._id}`}>
-                      <button
-                        // onClick={() => handleUpdate(item._id)}
-                        className="btn btn-ghost btn-lg"
-                      >
+                      <button className="btn btn-ghost btn-lg">
                         <FaEdit className="text-red-500 " />
                       </button>
                     </Link>
@@ -124,19 +119,19 @@ const ManageItems = () => {
         >
           Prev
         </button>
-        {pages.map((page) => (
+        {Array.from({ length: numberOfPages }, (_, index) => (
           <button
             className={`mx-2 btn my-5 active:bg-gray-700  ${
-              page + 1 === currentPage ? "active" : ""
+              index + 1 === currentPage ? "active" : ""
             }`}
-            onClick={() => setCurrentPage(page + 1)}
-            key={page}
+            onClick={() => setCurrentPage(index + 1)}
+            key={index}
             style={{
-              backgroundColor: page + 1 === currentPage ? "gray" : "initial",
-              color: page + 1 === currentPage ? "white" : "black",
+              backgroundColor: index + 1 === currentPage ? "gray" : "initial",
+              color: index + 1 === currentPage ? "white" : "black",
             }}
           >
-            {page + 1}
+            {index + 1}
           </button>
         ))}
         <button

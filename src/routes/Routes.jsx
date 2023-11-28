@@ -10,6 +10,8 @@ import SignUp from "../pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import PaymentInfo from "../pages/Dashboard/PaymentInfo/PaymentInfo";
 import AddMeal from "../pages/Dashboard/AddMeal/AddMeal";
+import AdminRoute from "./AdminRoute";
+import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
 
 const router = createBrowserRouter([
   {
@@ -58,11 +60,17 @@ const router = createBrowserRouter([
       // admin only routes
       {
         path: "manageUsers",
-        element: <AllUsers />,
+        element: <AdminRoute><AllUsers /></AdminRoute> ,
+      },
+      {
+        path: "updateItem/:id",
+        element: <AdminRoute><UpdateItem /></AdminRoute> ,
+        loader: ({params})=>fetch (`http://localhost:5000/meals/${params.id}`)
+
       },
       {
         path: "addMeal",
-        element: <AddMeal />,
+        element: <AdminRoute><AddMeal /></AdminRoute>,
       },
     ],
   },

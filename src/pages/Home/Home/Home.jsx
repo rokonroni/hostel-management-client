@@ -7,7 +7,10 @@ import Banner from "../Banner/Banner";
 import PriceTable from "../PriceTable/PriceTable";
 
 const Home = () => {
-  const [allmeals, isPending] = useMeals();
+  // const [allmeals, isPending] = useMeals();
+
+  const [allmeals, isPending] = useMeals(1,10);
+console.log("Meals data:", allmeals);
 
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All meals");
@@ -34,7 +37,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>meal Finder || Home</title>
+        <title>Hostel Management | Home</title>
       </Helmet>
       <div className="space-y-11 mb-10">
         <Banner handleSearchCategory={handleSearchCategory} />

@@ -24,6 +24,8 @@ const SignUp = () => {
         const userInfo = {
           name: data.name,
           email: data.email,
+          role: "user",
+          package: "Bronze",
         };
         axiosPublic.post("/users", userInfo).then((res) => {
           if (res.data.insertedId) {
@@ -96,7 +98,7 @@ const SignUp = () => {
               >
                 Photo URL
               </label>
-               <input
+              <input
                 type="text"
                 {...register("photoURL", { required: true })}
                 placeholder="Enter your Photo URL"
@@ -115,7 +117,7 @@ const SignUp = () => {
               >
                 Email
               </label>
-               <input
+              <input
                 type="email"
                 name="email"
                 {...register("email", { required: true })}

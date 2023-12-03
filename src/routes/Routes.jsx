@@ -12,12 +12,15 @@ import PaymentInfo from "../pages/Dashboard/PaymentInfo/PaymentInfo";
 import AddMeal from "../pages/Dashboard/AddMeal/AddMeal";
 import AdminRoute from "./AdminRoute";
 import UpdateItem from "../pages/Dashboard/UpdateItem/UpdateItem";
+import MealDetails from "../pages/Home/MealDetails/MealDetails";
+import Meals from "../pages/Meals/Meals";
+import ErrorPage from "../pages/Shared/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: "/",
@@ -27,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "meal/:id",
+        element: <MealDetails />,
+      },
+      {
+        path: "meals",
+        element: <Meals />,
       },
       {
         path: "signup",
@@ -45,8 +56,13 @@ const router = createBrowserRouter([
         <Dashboard />
       </PrivateRoute>
     ),
+    // errorElement: <ErrorPage/>,
     children: [
       // users routes
+      {
+        path: "",
+        element: <UserProfile />,
+      },
       {
         path: "userProfile",
         element: <UserProfile />,

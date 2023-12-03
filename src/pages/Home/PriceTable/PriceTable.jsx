@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Pricing = () => {
   return (
-    <section className="relative z-10 overflow-hidden bg-white pb-12 dark:bg-dark lg:pb-4 lg:pt-10 ">
+    <section className="relative z-10 overflow-hidden bg-white pb-12 dark:bg-dark lg:pb-4 lg:pt-10">
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">
@@ -21,54 +21,51 @@ const Pricing = () => {
           <div className="-mx-4 flex flex-wrap">
             <PricingCard
               type="Silver"
-              price="$59"
+              price="$29"
               subscription="Month"
-              description="Perfect for using in a personal website or a client project."
+              description="Ideal for individuals or small groups who want basic hostel management features related to meals."
               buttonText="Book Now"
             >
-              <List>1 User</List>
-              <List>All UI components</List>
-              <List>Lifetime access</List>
-              <List>Free updates</List>
-              <List>Use on 1 (one) project</List>
+              <List>Basic Meal Planning</List>
+              <List>Attendance Tracking</List>
+              <List>Monthly Reports</List>
+              <List>Use on 1 (one) hostel</List>
               <List>3 Months support</List>
             </PricingCard>
             <PricingCard
               type="Platinum"
-              price="$256"
+              price="$99"
               subscription="Month"
-              description="Perfect for using in a personal website or a client project."
+              description="Tailored for large hostels with comprehensive meal management tools and priority support."
               buttonText="Book Now"
               active
             >
-              <List>5 User</List>
-              <List>All UI components</List>
-              <List>Lifetime access</List>
-              <List>Free updates</List>
-              <List>Use on31 (Three) project</List>
-              <List>4 Months support</List>
+              <List>Premium Meal Customization</List>
+              <List>Full Staff Management</List>
+              <List>Financial Reports</List>
+              <List>Use on Unlimited hostels</List>
+              <List>12 Months support</List>
             </PricingCard>
             <PricingCard
               type="Gold"
-              price="$199"
+              price="$59"
               subscription="Month"
-              description="Perfect for using in a personal website or a client project."
+              description="Perfect for medium-sized hostels with additional features for enhanced meal management."
               buttonText="Book Now"
             >
-              <List>Unlimited User</List>
-              <List>All UI components</List>
-              <List>Lifetime access</List>
-              <List>Free updates</List>
-              <List>Unlimited project</List>
-              <List>12 Months support</List>
+              <List>Advanced Meal Planning</List>
+              <List>Room Allocation</List>
+              <List>Attendance Analytics</List>
+              <List>Use on 3 (three) hostels</List>
+              <List>4 Months support</List>
             </PricingCard>
+            
           </div>
         </div>
       </div>
     </section>
   );
 };
-
 export default Pricing;
 
 const PricingCard = ({children,description,price,type,subscription,buttonText,active,}) => {
@@ -365,8 +362,13 @@ const PricingCard = ({children,description,price,type,subscription,buttonText,ac
   );
 };
 
+
+
 const List = ({ children }) => {
   return (
     <p className="text-base text-body-color dark:text-dark-6">{children}</p>
   );
 };
+
+
+ export const PackageInfo= PricingCard;  

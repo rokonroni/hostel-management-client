@@ -12,6 +12,8 @@ const SocialLogin = () => {
       const userInfo = {
         email: result.user?.email,
         name: result.user?.displayName,
+        role: "user",
+        package:"Bronze"
       };
       axiosPublic.post("/users", userInfo).then(() => {
         navigate("/");

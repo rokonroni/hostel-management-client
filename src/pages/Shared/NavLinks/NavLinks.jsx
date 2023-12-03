@@ -22,6 +22,34 @@ const NavLinks = () => {
           Home
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/meals"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "bg-none"
+              : isActive
+              ? "text-[#FF444A] font-bold underline text-lg "
+              : "font-bold underline text-lg hover:bg-transparent hover:text-[#FF444A] focus:bg-white focus:text-[#FF444A]"
+          }
+        >
+          Meals
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/upcomingMeals"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "bg-none"
+              : isActive
+              ? "text-[#FF444A] font-bold underline text-lg "
+              : "font-bold underline text-lg hover:bg-transparent hover:text-[#FF444A] focus:bg-white focus:text-[#FF444A]"
+          }
+        >
+          Upcoming Meals
+        </NavLink>
+      </li>
       <div>
         {user?.email ? (
           <>

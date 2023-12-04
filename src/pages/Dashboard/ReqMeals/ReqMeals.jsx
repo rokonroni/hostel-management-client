@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { FaEdit, FaEye, FaTrashAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useCount from "../../../hooks/useCount";
-import useMeals from "../../../hooks/useMeals";
 
-const ManageItems = () => {
+import useReqMeals from "../../../hooks/useReqMeals";
+import useReqCount from "../../../hooks/useReqCount";
+
+const ReqMeals = () => {
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const [allmeals, manualRefetch] = useMeals(currentPage, pageSize);
+  const [allmeals, manualRefetch] = useReqMeals(currentPage, pageSize);
   const axiosSecure = useAxiosSecure();
-  const [count] = useCount();
+  const [count] = useReqCount();
   const numberOfPages = Math.ceil(count / pageSize);
 
 
@@ -40,7 +40,7 @@ const ManageItems = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await axiosSecure.delete(`/meals/${id}`);
+          const response = await axiosSecure.delete(`/reqMeals/${id}`);
           if (response.data.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",
@@ -71,10 +71,7 @@ const ManageItems = () => {
                 <th>Meal Title</th>
                 <th>Total Likes</th>
                 <th>Total Reviews</th>
-                <th>Distributor Name</th>
-                <th>Distributor Email</th>
-                <th>View Item</th>
-                <th>Action</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -86,25 +83,11 @@ const ManageItems = () => {
                       ? (currentPage - 1) * pageSize + idx + 1
                       : idx + 1}
                   </th>
-                  <td>{item.meal_title}</td>
-                  <td>{item.likes}</td>
-                  <td>{item.reviews}</td>
-                  <td>{item.admin_name}</td>
-                  <td>${item.admin_email}</td>
-                  <th>
-                    <Link to={`/meal/${item._id}`}>
-                      <button className="btn btn-ghost btn-lg">
-                        <FaEye className="text-red-500 " />
-                      </button>
-                    </Link>
-                  </th>
-                  <th>
-                    <Link to={`/dashboard/updateItem/${item._id}`}>
-                      <button className="btn btn-ghost btn-lg">
-                        <FaEdit className="text-red-500 " />
-                      </button>
-                    </Link>
-                  </th>
+                  <td>{item?.mealDetails?.meal_title}</td>
+                  <td>{item?.mealDetails?.likes}</td>
+                  <td>{item?.mealDetails?.reviews}</td>
+                  <td>{item.status}</td>
+
                   <th>
                     <button
                       onClick={() => handleDelete(item._id)}
@@ -154,4 +137,4 @@ const ManageItems = () => {
   );
 };
 
-export default ManageItems;
+export default ReqMeals;

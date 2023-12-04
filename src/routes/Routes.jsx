@@ -16,6 +16,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import AdminProfile from "../pages/Dashboard/AdminProfile/AdminProfile";
+import ReqMeals from "../pages/Dashboard/ReqMeals/ReqMeals";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "userProfile",
         element: <UserProfile />,
+      },
+      {
+        path: "requestedMeals",
+        element: <ReqMeals />,
       },
       
 

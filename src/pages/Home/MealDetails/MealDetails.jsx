@@ -68,6 +68,7 @@ const MealDetails = () => {
         const reqMeal = {
           mealDetails: mealDetails,
           userEmail: user.email,
+          status: "pending"
         };
         axiosSecure.post("/reqMeal", reqMeal).then((res) => {
           if (res.data.insertedId) {

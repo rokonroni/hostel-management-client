@@ -9,8 +9,7 @@ import PriceTable from "../PriceTable/PriceTable";
 const Home = () => {
   // const [allmeals, isPending] = useMeals();
 
-  const [allmeals, isPending] = useMeals(1,10);
-console.log("Meals data:", allmeals);
+  const [allmeals, isPending] = useMeals(1,20);
 
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All meals");

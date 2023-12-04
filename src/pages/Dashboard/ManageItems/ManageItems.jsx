@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaEye, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
@@ -10,10 +10,11 @@ import useMeals from "../../../hooks/useMeals";
 const ManageItems = () => {
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const [menu, isPending, manualRefetch] = useMeals(currentPage, pageSize);
+  const [menu, manualRefetch] = useMeals(currentPage, pageSize);
   const axiosSecure = useAxiosSecure();
   const [count] = useCount();
   const numberOfPages = Math.ceil(count / pageSize);
+
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -61,15 +62,18 @@ const ManageItems = () => {
         <SectionTitle title={"MANAGE ALL ITEMS"} subTitle={"---Hurry Up!---"} />
       </div>
       <div>
-        <div className="overflow-x-auto mt-6 ">
+        <div className="overflow-x-hidden mt-6 ">
           <table className="table">
             {/* head */}
-            <thead className="text-white font-semibold text-xl ">
+            <thead className="text-white font-semibold ">
               <tr className="bg-yellow-800 ">
                 <th>#</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
+                <th>Meal Title</th>
+                <th>Total Likes</th>
+                <th>Total Reviews</th>
+                <th>Distributor Name</th>
+                <th>Distributor Email</th>
+                <th>View Item</th>
                 <th>Action</th>
                 <th>Action</th>
               </tr>
@@ -82,15 +86,18 @@ const ManageItems = () => {
                       ? (currentPage - 1) * pageSize + idx + 1
                       : idx + 1}
                   </th>
-                  <td>
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img src={item.meal_image} alt={`Meal ${item.meal_title}`} />
-                      </div>
-                    </div>
-                  </td>
                   <td>{item.meal_title}</td>
-                  <td>${item.price}</td>
+                  <td>{item.likes}</td>
+                  <td>{item.reviews}</td>
+                  <td>{item.admin_name}</td>
+                  <td>${item.admin_email}</td>
+                  <th>
+                    <Link to={`/meal/${item._id}`}>
+                      <button className="btn btn-ghost btn-lg">
+                        <FaEye className="text-red-500 " />
+                      </button>
+                    </Link>
+                  </th>
                   <th>
                     <Link to={`/dashboard/updateItem/${item._id}`}>
                       <button className="btn btn-ghost btn-lg">

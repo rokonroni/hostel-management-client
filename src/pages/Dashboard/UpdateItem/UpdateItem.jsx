@@ -62,7 +62,7 @@ const UpdateItem = () => {
     likes: 0,
     reviews: 0,
     rating: 0,
-    time_date: data.time_date,
+    time_date: new Date(),
     price: parseFloat(data.price),
     image: imageURL,
   };
@@ -185,25 +185,6 @@ const UpdateItem = () => {
           />
           {errors.price && (
             <span className="text-red-600 mt-2 ">*Price is required</span>
-          )}
-        </div>
-
-        <div className="mt-4">
-          <label
-            className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-            htmlFor="timeDate"
-          >
-            Time/Date
-          </label>
-          <input
-            defaultValue={time_date}
-            type="datetime-local"
-            name="time_date"
-            {...register("time_date", { required: true })}
-            className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
-          />
-          {errors.time_date && (
-            <span className="text-red-600 mt-2 ">*Time/Date is required</span>
           )}
         </div>
 
